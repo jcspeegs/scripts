@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# tmux-sessionizer
+#  Ripped off from ThePrimeagen
+#  https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
 path=${1:-$(find ~ /etc/nixos{,/packages{,/scripts}} -mindepth 1 -maxdepth 1 \
     -type d | fzf)}
 name=$(basename "$path" | tr . _)
