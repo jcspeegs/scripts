@@ -4,7 +4,7 @@
 #  Ripped off from ThePrimeagen
 #  https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-path=${1:-$(find ~ /etc/nixos{,/packages{,/scripts}} -maxdepth 1 -type d | fzf)}
+path=${1:-$(find ~ -type d | fzf)}
 name=$(basename "$path" | tr . _)
 # pid=$(pgrep tmux)
 cmd=${2:-bash -l}
