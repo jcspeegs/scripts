@@ -4,11 +4,12 @@
 #  Ripped off from ThePrimeagen
 #  https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-path=${1:-$(find ~ -type d | fzf)}
+path=${1:-$(fd -HLt d -c always -d 3 . ~ | fzf)}
 name=$(basename "$path" | tr . _)
 # pid=$(pgrep tmux)
 cmd=${2:-bash -l}
 
+which fd
 ! tmux has-session -t="$name" 2>/dev/null && \
     tmux new-session -ds "$name" -c "$path" "$cmd"
 

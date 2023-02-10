@@ -11,7 +11,7 @@
     pkgs = inputs.nixpkgs.legacyPackages.${system};
     tmux-sessionizer = pkgs.writeShellApplication {
       name = "tmux-sessionizer";
-      runtimeInputs = with pkgs; [ tmux fd ];
+      runtimeInputs = with pkgs; [ tmux fd fzf ];
       text = builtins.readFile ./tmux-sessionizer.sh;
     };
   in {
