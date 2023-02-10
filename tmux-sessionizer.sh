@@ -9,7 +9,6 @@ name=$(basename "$path" | tr . _)
 # pid=$(pgrep tmux)
 cmd=${2:-bash -l}
 
-which fd
 ! tmux has-session -t="$name" 2>/dev/null && \
     tmux new-session -ds "$name" -c "$path" "$cmd"
 
