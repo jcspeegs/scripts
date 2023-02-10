@@ -6,7 +6,6 @@
 
 path=${1:-$(fd -HLt d -d 3 . ~ | fzf)}
 name=$(basename "$path" | tr . _)
-# pid=$(pgrep tmux)
 cmd=${2:-bash -l}
 
 ! tmux has-session -t="$name" 2>/dev/null && \
