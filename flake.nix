@@ -16,5 +16,6 @@
     };
   in {
     packages.${system}.tmux-sessionizer = tmux-sessionizer;
+    overlays.tmux-sessionizer = _: _: { inherit tmux-sessionizer; };
   };
 }
