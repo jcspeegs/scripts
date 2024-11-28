@@ -3,19 +3,21 @@
 
   inputs =  {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs } @ inputs:
-  let
-    system = "x86_64-linux";
-    pkgs = inputs.nixpkgs.legacyPackages.${system};
-    tmux-sessionizer = pkgs.writeShellApplication {
-      name = "tmux-sessionizer";
-      runtimeInputs = with pkgs; [ tmux fd fzf ];
-      text = builtins.readFile ./tmux-sessionizer.sh;
-    };
-  in {
-    packages.${system}.tmux-sessionizer = tmux-sessionizer;
-    overlays.tmux-sessionizer = _: _: { inherit tmux-sessionizer; };
-  };
+  outputs = { self, nixpkgs, flake-utils } @ inputs:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        tmux-sessionizer = pkgs.writeShellApplication {
+          name = "tmux-sessionizer";
+          runtimeInputs = with pkgs; [ tmux fd fzf ];
+          text = builtins.readFile ./tmux-sessionizer.sh;
+        };
+      in {
+        packages.${system}."tmux-sessionizer" = tmux-sessionizer;
+        overlays."tmux-sessionizer" = _: _: { inherit tmux-sessionizer; };
+      }
+  );
 }
